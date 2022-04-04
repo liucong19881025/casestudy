@@ -192,8 +192,6 @@
       ]
     }
   },
-  "proxy": "http://127.0.0.1:5001",
-  "secure":false,
   "babel": {
     "presets": [
       "airbnb"

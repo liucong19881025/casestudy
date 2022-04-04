@@ -9,7 +9,7 @@ services:
     ports:
       - '5432:5432'
   web:
-    image: scliudocker/starter-postgres-express-react:v1
+    image: scliudocker/starter-postgres-express-react:v3
     depends_on:
       - postgres
     ports:

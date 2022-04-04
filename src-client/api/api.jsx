@@ -1,7 +1,8 @@
 import axios from 'axios';
 
+const url = `${process.env.DB_HOST}`;
 const instance = axios.create({
-  baseURL: 'http://127.0.0.1:3000/'
+  baseURL: url
 });
 
 instance.interceptors.request.use((config) => {
