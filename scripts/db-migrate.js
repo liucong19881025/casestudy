@@ -10,11 +10,11 @@ const databaseUrl = connectionStr;
 const direction = 'up';
 const dir = './migrations';
 const migrationsTable = 'migrations';
-const migrationsSchema = schema;
+const migrationsSchema = 'public';
 
 function main() {
   // Execute the migrations
-  console.log("Running the migrations...");
+  console.log('Running the migrations...');
   return migrate.default({
     databaseUrl,
     migrationsTable,
@@ -24,7 +24,6 @@ function main() {
     dir
   });
 }
-
 
 if (require.main === module) {
   main();

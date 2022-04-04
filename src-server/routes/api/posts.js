@@ -36,6 +36,11 @@ module.exports = (app) => {
     const data = await posts.delete(req.params.id);
     res.json(data);
   });
+  // all post titles and how many posts have each title
+  router.get('/post-summaries', auth.authenticate, async (req, res) => {
+    const data = await posts.getSummaries();
+    res.json(data);
+  });
 
   return Router().use('/posts', router);
 };

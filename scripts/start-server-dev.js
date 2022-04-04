@@ -63,7 +63,7 @@ function main() {
     // ----------
 
     // Get port from environment and store in Express.
-    const port = normalizePort(process.env.PORT || '5000');
+    const port = normalizePort(process.env.PORT || '5001');
     app.set('port', port);
 
     // Create HTTP server.

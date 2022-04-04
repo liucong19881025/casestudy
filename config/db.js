@@ -2,8 +2,7 @@ const hostWithPort = `${process.env.DB_HOST}${process.env.DB_PORT ? `:${process.
 let connectionStr = `postgres://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${hostWithPort}/${process.env.DB_NAME}`;
 if (process.env.DB_ENABLE_SSL) connectionStr += '?ssl=true';
 
-const schema = 'public';
-
+const schema = ['public', 'test'];
 module.exports = {
   connectionStr,
   schema

@@ -19,7 +19,17 @@ module.exports = (app) => {
     [id],
     { single: true }
   );
-
+  module.getOneByAuthor = async (author) => db.query(
+    'select p.*, u.email as author from posts p left join users u ON p.user_id=u.id where u.email=$1',
+    [author]
+  );
+  module.getOneByIDandAuthor = async (id, author) => db.query(
+    'select p.*, u.email as author from posts p left join users u ON p.user_id=u.id where p.id=$1 and u.email=$2',
+    [id, author]
+  );
+  module.getSummaries = async () => db.query(
+    'select title, count(*) as postcount from posts group by title',
+  );
   // Update
   module.update = async (id, row) => {
     if (!Number(id)) throw new Error('No id given');
