@@ -28,7 +28,7 @@ function seedPosts(db, users) {
   console.log('Seeding [posts]...');
   const records = [];
   try {
-    for (let i = 1; i <= 10; i += 1) {
+    for (let i = 1; i <= process.env.NUM_POSTS; i += 1) {
       const user = users[_.random(users.length - 1)];
       records.push(createRecordPost(db, tablePosts, user));
     }
@@ -54,7 +54,7 @@ function seedUsers(db) {
 function seed(db) {
   // Run seeding functions
   return seedUsers(db)
-    .then(users => seedPosts(db, users))
+    .then((users) => seedPosts(db, users))
     .then(() => {
       console.log('Successfully completed the seeding process');
     });
@@ -78,7 +78,7 @@ function closeDB(db) {
 }
 
 if (require.main === module) {
-  openDB().then(db => seed(db.db));
+  openDB().then((db) => seed(db.db));
 } else {
   module.exports = {
     openDB, seed, clearDB, closeDB

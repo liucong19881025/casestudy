@@ -1,0 +1,9 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t scliudocker/starter-postgres-express-react -f Dockerfile.dev .
+
+script:
+  - docker run scliudocker/starter-postgres-express-react npm run test:client -- --coverage

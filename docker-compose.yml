@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   postgres:
-    image: postgres
+    image: scliudocker/postgres
     environment:
       POSTGRES_PASSWORD: password
       POSTGRES_USER: starter
@@ -9,11 +9,9 @@ services:
     ports:
       - '5432:5432'
   web:
-    image: scliudocker/starter-postgres-express-react:v6
+    image: scliudocker/starter-postgres-express-react
     depends_on:
       - postgres
     ports:
       - "3000:3000"
       - "5001:5001"
-
-
