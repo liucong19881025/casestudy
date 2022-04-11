@@ -4,7 +4,6 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
 trigger:
-- master
 - feature/*
 
 pool:
@@ -19,5 +18,6 @@ steps:
 - script: |
     npm install
     npm run build
-  displayName: 'npm install and build'
+    npm run test:client
+  displayName: 'npm install, build and test client'
   
