@@ -31,6 +31,7 @@ stages:
                 $(tag)
           - task: AzureRmWebAppDeployment@4
             displayName: Cong Deploy Azure App Service
+            inputs:
               ConnectionType: AzureRM
               azureSubscription: $(azureSubscription)
               appType: webAppContainer
