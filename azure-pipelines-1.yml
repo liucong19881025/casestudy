@@ -1,40 +1,41 @@
-# Docker
-# Build and push an image to Azure Container Registry
-# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 trigger: none
-
 pr:
-- release
-
+  - release
 resources:
-- repo: self
-
+  - repo: self
 variables:
-  # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: '5d54eca0-2c66-499f-bde6-5387b86d2d79'
-  imageRepository: 'liucongcasestudy'
-  containerRegistry: 'scliu.azurecr.io'
-  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
-  tag: '$(Build.BuildId)'
-
-  # Agent VM image name
-  vmImageName: 'ubuntu-latest'
-
+  azureSubscription: Azure subscription 1 (bc0e62c3-8da3-4f9c-bebe-00c03c3b805b)
+  dockerRegistryServiceConnection: 5d54eca0-2c66-499f-bde6-5387b86d2d79
+  imageRepository: liucongcasestudy
+  containerRegistry: scliu.azurecr.io
+  dockerfilePath: $(Build.SourcesDirectory)/Dockerfile
+  tag: $(Build.BuildId)
+  vmImageName: ubuntu-latest
 stages:
-- stage: Build
-  displayName: Build and push stage
-  jobs:
-  - job: Build
-    displayName: Build
-    pool:
-      vmImage: $(vmImageName)
-    steps:
-    - task: Docker@2
-      displayName: Build and push an image to container registry
-      inputs:
-        command: buildAndPush
-        repository: $(imageRepository)
-        dockerfile: $(dockerfilePath)
-        containerRegistry: $(dockerRegistryServiceConnection)
-        tags: |
-          $(tag)
+  - stage: Build
+    displayName: Build and push stage
+    jobs:
+      - job: Build
+        displayName: Build
+        pool:
+          vmImage: $(vmImageName)
+        steps:
+          - task: Docker@2
+            displayName: Build and push an image to container registry
+            inputs:
+              command: buildAndPush
+              repository: $(imageRepository)
+              dockerfile: $(dockerfilePath)
+              containerRegistry: $(dockerRegistryServiceConnection)
+              tags: |
+                $(tag)
+          - task: AzureRmWebAppDeployment@4
+            displayName: Cong Deploy Azure App Service
+            inputs:
+              azureSubscription: $(azureSubscription)
+              appType: webAppContainer
+              WebAppName: scliucasestudy
+              DockerNamespace: $(containerRegistry)
+              DockerRepository: $(imageRepository)
+              DockerImageTag: |
+                $(tag)
