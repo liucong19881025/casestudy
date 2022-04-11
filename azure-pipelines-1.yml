@@ -5,6 +5,7 @@ resources:
   - repo: self
 variables:
   azureSubscription: Azure subscription 1 (bc0e62c3-8da3-4f9c-bebe-00c03c3b805b)
+  azureSubscriptionEndpoint: scliu-acr-service-connection-name
   dockerRegistryServiceConnection: 5d54eca0-2c66-499f-bde6-5387b86d2d79
   imageRepository: liucongcasestudy
   containerRegistry: scliu.azurecr.io
@@ -32,7 +33,7 @@ stages:
           - task: AzureRmWebAppDeployment@4
             displayName: Cong Deploy Azure App Service
             inputs:
-              containerRegistry: $(dockerRegistryServiceConnection)
+              ConnectedServiceName: $(azureSubscriptionEndpoint)
               azureSubscription: $(azureSubscription)
               appType: webAppContainer
               WebAppName: scliucasestudy
