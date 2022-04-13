@@ -161,3 +161,4 @@ This endpoint updates an existing Post by ID. The input/output formats are the s
 ### `DELETE /api/posts/:id`: Delete a Post by ID
 This endpoint deletes an individual Post by ID. The ID is provided as a URI parameter.
 test
+test
