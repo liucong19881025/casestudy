@@ -4,8 +4,6 @@
   "private": true,
   "dependencies": {
     "@babel/core": "7.12.3",
-    "@emotion/react": "^11.8.2",
-    "@emotion/styled": "^11.8.1",
     "@mui/icons-material": "^5.5.1",
     "@mui/material": "^5.5.3",
     "@mui/x-data-grid": "^5.7.0",

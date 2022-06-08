@@ -1,8 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import API from '../../api/api';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { withStore } from '../../store';
+import API from '../../api/api';
+import Copyright from '../Copyright';
 
 class SignUp extends React.Component {
   constructor(props) {
@@ -81,120 +94,136 @@ class SignUp extends React.Component {
 
   render() {
     const { user, formErrors, error } = this.state;
+    console.log(user);
+    console.log(formErrors);
+    console.log(error);
+    const theme = createTheme();
     return (
-      <div className="card text-left mb-3">
-        <div className="card-body">
-          <form onSubmit={this.handleSubmit}>
-            { error && (
-              <div className="alert alert-danger">
-                Some error occurred
-              </div>
-            )}
-            <div className="form-group">
-              <label htmlFor="email">
-                Email
-              </label>
-              <input
-                type="email"
-                className={`form-control ${this.errorClass(formErrors.email)}`}
-                id="email"
-                aria-describedby="email"
-                placeholder="Enter email"
-                onChange={this.handleChange}
-                value={user.email}
-              />
-              {formErrors.email && (
-                <div className="invalid-feedback">
-                  {formErrors.email}
+      <ThemeProvider theme={theme}>
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <Box
+            sx={{
+              marginTop: 8,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign up
+            </Typography>
+            <Box component="form" noValidate onSubmit={this.handleSubmit} sx={{ mt: 3 }}>
+              { error && (
+                <div className="alert alert-danger">
+                  Some error occurred
                 </div>
               )}
-            </div>
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    autoComplete="given-name"
+                    name="firstName"
+                    required
+                    fullWidth
+                    id="firstName"
+                    label="First Name"
+                    autoFocus
+                    onChange={this.handleChange}
+                    value={user.firstName}
+                    error={formErrors.firstName}
+                    helperText={formErrors.firstName}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="lastName"
+                    label="Last Name"
+                    name="lastName"
+                    autoComplete="family-name"
+                    onChange={this.handleChange}
+                    value={user.lastName}
+                    error={formErrors.lastName}
+                    helperText={formErrors.lastName}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                    onChange={this.handleChange}
+                    value={user.email}
+                    error={formErrors.email}
+                    helperText={formErrors.email}
+                  />
 
-            <div className="form-group">
-              <label htmlFor="firstName">
-                First Name
-              </label>
-              <input
-                type="text"
-                className={`form-control ${this.errorClass(formErrors.firstName)}`}
-                id="firstName"
-                aria-describedby="firstName"
-                placeholder="Enter first name"
-                onChange={this.handleChange}
-                value={user.firstName}
-              />
-              {formErrors.firstName && (
-                <div className="invalid-feedback">
-                  {formErrors.firstName}
-                </div>
-              )}
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="lastName">
-                Last Name
-              </label>
-              <input
-                type="lastName"
-                className={`form-control ${this.errorClass(formErrors.lastName)}`}
-                id="lastName"
-                aria-describedby="lastName"
-                placeholder="Enter last name"
-                onChange={this.handleChange}
-                value={user.lastName}
-              />
-              {formErrors.lastName && (
-                <div className="invalid-feedback">
-                  {formErrors.lastName}
-                </div>
-              )}
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="password">
-                Password
-              </label>
-              <input
-                type="password"
-                className={`form-control ${this.errorClass(formErrors.password)}`}
-                id="password"
-                placeholder="Enter password"
-                onChange={this.handleChange}
-                value={user.password}
-              />
-              {formErrors.password && (
-                <div className="invalid-feedback">
-                  {formErrors.password}
-                </div>
-              )}
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="password2">
-                Repeat Password
-              </label>
-              <input
-                type="password"
-                className={`form-control ${this.errorClass(formErrors.password2)}`}
-                id="password2"
-                placeholder="Enter password2"
-                onChange={this.handleChange}
-                value={user.password2}
-              />
-              {formErrors.password2 && (
-                <div className="invalid-feedback">
-                  {formErrors.password2}
-                </div>
-              )}
-            </div>
-            <div className="btn-group" role="group" aria-label="">
-              <button type="submit" className="btn btn-primary">
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="new-password"
+                    onChange={this.handleChange}
+                    value={user.password}
+                    error={formErrors.password}
+                    helperText={formErrors.password}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    name="comfirm password"
+                    label="Comfirm Password"
+                    type="password"
+                    id="password2"
+                    autoComplete="new-password"
+                    onChange={this.handleChange}
+                    value={user.password2}
+                    error={formErrors.password2}
+                    helperText={formErrors.password2}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <FormControlLabel
+                    control={<Checkbox value="allowExtraEmails" color="primary" />}
+                    label="I want to receive inspiration, marketing promotions and updates via email."
+                  />
+                </Grid>
+              </Grid>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
                 Sign Up
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
+              </Button>
+              <Grid container justifyContent="flex-end">
+                <Grid item>
+                  <Link href="/sign_in" variant="body2">
+                    Already have an account? Sign in
+                  </Link>
+                </Grid>
+              </Grid>
+            </Box>
+          </Box>
+          <Copyright sx={{ mt: 5 }} />
+        </Container>
+      </ThemeProvider>
     );
   }
 }

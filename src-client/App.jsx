@@ -29,15 +29,6 @@ const App = ({ store }) => {
     <Router>
       <div className="App">
         <Header />
-        <p className="App-intro">
-          To get started, edit
-          {' '}
-          <code>
-            src/App.jsx
-          </code>
-          {' '}
-          and save to reload.
-        </p>
         <div className="container">
           <div>
             <PrivateRoute exact path="/" component={PostsContainer} />
