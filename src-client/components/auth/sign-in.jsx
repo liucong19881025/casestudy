@@ -154,7 +154,7 @@ class SignIn extends React.Component {
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="# " variant="body2">
+                  <Link href="/sign_up" variant="body2">
                     Do not have an account? Sign Up
                   </Link>
                 </Grid>
